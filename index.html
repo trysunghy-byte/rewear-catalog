@@ -79,15 +79,25 @@
     </div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand(); // Expands app to full height inside Telegram
+ <script>
+  // Initialize Telegram WebApp SDK
+  const tg = window.Telegram.WebApp;
+  tg.expand();
 
-    function orderItem(id, name) {
-      // Send data back to the Telegram chat
-      tg.sendData(JSON.stringify({ item_id: id, item_name: name }));
-      tg.close();
+  function orderItem(id, name, price) {
+    // 1. Give instant feedback to the buyer
+    alert(`Thank you! You selected: ${name} (${price}).\nOpening direct chat to confirm your delivery details...`);
+
+    // 2. Direct buyer straight to your Telegram DM with a pre-filled message
+    // Replace 'ReWearSelectionBot' or your personal username below
+    const orderMessage = encodeURIComponent(`Hi! I'd like to order: ${name} (ID: ${id}) - ${price}`);
+    const telegramDmUrl = `https://t.me/ReWearSelectionBot?start=${id}`;
+
+    // Open chat window inside Telegram
+    if (tg.openTelegramLink) {
+      tg.openTelegramLink(`https://t.me/ReWearSelectionBot`);
+    } else {
+      window.location.href = `https://t.me/ReWearSelectionBot`;
     }
-  </script>
-</body>
-</html>
+  }
+</script>
