@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReWear Selection Catalog</title>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg-color: #f8f8f6;
+      --primary: #1e3a2b; /* Forest Green */
+      --accent: #d99b00;  /* Mustard Yellow */
+      --card-bg: #ffffff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: #333;
+      margin: 0;
+      padding: 16px;
+    }
+    h2 { color: var(--primary); margin-top: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+    .title { font-weight: bold; font-size: 14px; margin: 8px 0 4px; }
+    .details { font-size: 12px; color: #666; margin-bottom: 6px; }
+    .price { font-weight: bold; color: var(--accent); font-size: 15px; }
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ReWear Selection Drop #1 ⚡</h2>
+  
+  <div class="grid">
+    <!-- Item 1 -->
+    <div class="card">
+      <img src="YOUR_IMAGE_URL_1.jpg" alt="Uniqlo Baggy Jeans">
+      <div class="title">Uniqlo Baggy Jeans</div>
+      <div class="details">Waist: 32" | 9.5/10</div>
+      <div class="price">$13.50</div>
+      <button class="btn" onclick="orderItem('TR-001', 'Uniqlo Baggy Jeans')">Order Now</button>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="card">
+      <img src="YOUR_IMAGE_URL_2.jpg" alt="Uniqlo UV Jacket">
+      <div class="title">Uniqlo UV Jacket</div>
+      <div class="details">Size: M | 9.5/10</div>
+      <div class="price">$12.50</div>
+      <button class="btn" onclick="orderItem('JK-001', 'Uniqlo UV Jacket')">Order Now</button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // Expands app to full height inside Telegram
+
+    function orderItem(id, name) {
+      // Send data back to the Telegram chat
+      tg.sendData(JSON.stringify({ item_id: id, item_name: name }));
+      tg.close();
+    }
+  </script>
+</body>
+</html>
